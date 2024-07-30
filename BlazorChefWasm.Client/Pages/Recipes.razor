@@ -1,0 +1,68 @@
+﻿@page "/recipes"
+@using ChefDomain
+@using Microsoft.FSharp.Collections
+
+@inject HttpClient Http
+
+<h3>Recipes</h3>
+
+<ul>
+    @foreach (var recipe in _recipes)
+    {
+        <li><div>
+            <p>@recipe.Name</p>
+            <p>@foreach (var ingredient in recipe.Ingredients)
+               {
+                   <span>@(ingredient.Name): @ingredient.Quantity @ingredient.Unit </span>
+               }
+            </p>
+            <p>
+                <ul style="list-style-type: none">
+                @foreach (var instruction in recipe.Instructions)
+                {
+                    <li>@instruction</li>
+                }
+                </ul>
+            </p>
+        </div></li>
+    }
+</ul>
+
+<div>
+    <input type="text" @bind="_newRecipe"/>
+    <input type="button" value="Add" @onclick="AddRecipe" />
+</div>
+
+@code {
+    private List<Types.Recipe> _recipes = [];
+
+    private string _newRecipe = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Http.DefaultRequestHeaders.Add("Access-Control-Allow-Origin", "localhost:5229");
+        var loadedRecipes = await Http.GetFromJsonAsync<List<Types.Recipe>>("recipes");
+
+        if (loadedRecipes != null) _recipes = loadedRecipes;
+    }
+
+    private void AddRecipe()
+    {
+        if (!string.IsNullOrWhiteSpace(_newRecipe))
+        {
+            var newRecipe = new Types.Recipe (_newRecipe, FSharpList<Types.Ingredient>.Empty, FSharpList<string>.Empty);
+
+            _recipes.Add(newRecipe);
+
+            // Maybe later
+            // var response = await Http.PostAsJsonAsync("recipes", newRecipe);
+
+            // if (response.IsSuccessStatusCode)
+            // {
+            //     _recipes.Add(newRecipe);
+            //     _newRecipe = "";
+            // }
+        }
+    }
+
+}
