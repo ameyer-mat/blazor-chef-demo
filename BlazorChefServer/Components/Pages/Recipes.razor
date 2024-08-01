@@ -29,8 +29,8 @@
 </ul>
 
 <div>
-    <input type="text" @bind="_newRecipe"/>
-    <input type="button" value="Add" @onclick="AddRecipe" />
+    <RadzenTextBox @bind-Value="@_newRecipe"></RadzenTextBox>
+    <RadzenButton Click="@AddRecipe" Text="Add"/>
 </div>
 
 @code {

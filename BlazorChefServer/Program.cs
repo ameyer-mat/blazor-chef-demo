@@ -1,4 +1,5 @@
 using BlazorChefServer.Components;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddScoped(_ =>
     {
         BaseAddress = new Uri("http://localhost:5229")
     });
+builder.Services.AddRadzenComponents();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
