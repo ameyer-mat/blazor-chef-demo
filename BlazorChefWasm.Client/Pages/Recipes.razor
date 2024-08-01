@@ -29,8 +29,8 @@
 </ul>
 
 <div>
-    <input type="text" @bind="_newRecipe"/>
-    <input type="button" value="Add" @onclick="AddRecipe" />
+    <MudTextField FullWidth="false" Style="width: 300px" T="string" @bind-value="_newRecipe" Label="New Recipe" w Variant="Variant.Text" ></MudTextField>
+    <MudButton OnClick="AddRecipe" Variant="Variant.Filled" Color="Color.Primary">Add</MudButton>
 </div>
 
 @code {

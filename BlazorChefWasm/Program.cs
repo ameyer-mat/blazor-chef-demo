@@ -1,4 +1,5 @@
 using BlazorChefWasm.Components;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddCors(o => o.AddPolicy("AllowAnyOrigin",
             .AllowAnyMethod()
             .AllowAnyHeader();
     }));
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
