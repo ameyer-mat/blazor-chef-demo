@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped(_ =>
     new HttpClient
     {
-        BaseAddress = new Uri("http://localhost:5229")
+        BaseAddress = new Uri("https://localhost:7293")
     });
 builder.Services.AddRadzenComponents();
 
